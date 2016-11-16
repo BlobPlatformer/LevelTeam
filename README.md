@@ -1,5 +1,6 @@
 # LevelTeam
 
+
 # Bundling
 
 The source code in the src directory is bundled into a single file using Browserify. The Browserify tools must first be installed on your system:
