@@ -106,19 +106,19 @@ function update(elapsedTime) {
   * @param {CanvasRenderingContext2D} ctx the context to render to
   */
 function render(elapsedTime, ctx) {
-  for(var i = 0; i<tiles.length; i++){
+  
+  for(var i = 0; i<map.length; i++){
 	  var row = Math.floor(i/tiles.getWidth());
 	  var col = i%tiles.getWidth();
-	  console.log(row +"  " + col);
 	  ctx.drawImage(
         // image
         spritesheet,
         // source rectangle
-        (tiles[i]-1) * 16, 0, 16, 16,
+        (map[i]-1) * 16, 0, 16, 16,
         // destination rectangle
-        row * 16, col * 16, 16, 16
+        col * 16, row * 16, 16, 16
       );
-  } 
+  }
 }
 
 
