@@ -105,7 +105,6 @@ function update(elapsedTime) {
   * @param {CanvasRenderingContext2D} ctx the context to render to
   */
 function render(elapsedTime, ctx) {
-
   var row;
   var col;
   for(var i=0; i<map.length; i++) {
