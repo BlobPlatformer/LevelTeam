@@ -21,7 +21,17 @@ var groundHit = false;
 
 
 var spritesheet = new Image();
-spritesheet.src = 'assets/basicTiles.jpg';
+spritesheet.src = 'assets/blobGameLevelSheet.png';
+var spriteArray = [{x: 0, y: 0}, {x: 16, y: 0},{x: 32, y: 0}, {x: 48, y: 0},{x: 64, y: 0}, {x: 80, y: 0},{x: 96, y: 0}, {x: 112, y: 0},{x: 128, y: 0},
+					{x: 0, y: 16}, {x: 16, y: 16},{x: 32, y: 16}, {x: 48, y: 16},{x: 64, y: 16}, {x: 80, y: 16},{x: 96, y: 16}, {x: 112, y: 16},{x: 128, y: 16},
+					{x: 0, y: 32}, {x: 16, y: 32},{x: 32, y: 32}, {x: 48, y: 32},{x: 64, y: 32}, {x: 80, y: 32},{x: 96, y: 32}, {x: 112, y: 32},{x: 128, y: 32},
+					{x: 0, y: 48}, {x: 16, y: 48},{x: 32, y: 48}, {x: 48, y: 48},{x: 64, y: 48}, {x: 80, y: 48},{x: 96, y: 48}, {x: 112, y: 48},{x: 128, y: 48},
+					{x: 0, y: 64}, {x: 16, y: 64},{x: 32, y: 64}, {x: 48, y: 64},{x: 64, y: 64}, {x: 80, y: 64},{x: 96, y: 64}, {x: 112, y: 64},{x: 128, y: 64},
+					{x: 0, y: 80}, {x: 16, y: 80},{x: 32, y: 80}, {x: 48, y: 80},{x: 64, y: 80}, {x: 80, y: 80},{x: 96, y: 80}, {x: 112, y: 80},{x: 128, y: 80},
+					{x: 0, y: 96}, {x: 16, y: 96},{x: 32, y: 96}, {x: 48, y: 96},{x: 64, y: 96}, {x: 80, y: 96},{x: 96, y: 96}, {x: 112, y: 96},{x: 128, y: 96},
+					{x: 0, y: 112}, {x: 16, y: 112},{x: 32, y: 112}, {x: 48, y: 112},{x: 64, y: 112}, {x: 80, y: 112},{x: 96, y: 112}, {x: 112, y: 112},{x: 128, y: 112},
+					{x: 0, y: 128}, {x: 16, y: 128},{x: 32, y: 128}, {x: 48, y: 128},{x: 64, y: 128}, {x: 80, y: 128},{x: 96, y: 128}, {x: 112, y: 128},{x: 128, y: 128}];
+
 var tiles = new Tiles();
 var map = tiles.getMap();
 var blocks = tiles.getBlocks();
@@ -137,6 +147,7 @@ function update(elapsedTime) {
   * the number of milliseconds passed since the last frame.
   * @param {CanvasRenderingContext2D} ctx the context to render to
   */
+
 function render(elapsedTime, ctx) {
   ctx.clearRect(0,0,canvas.width,canvas.height);
   //tilemap level background
@@ -150,7 +161,7 @@ function render(elapsedTime, ctx) {
     //ctx.restore();
     ctx.drawImage(
     spritesheet,
-        (map[i]-1)*16,0,16,16,
+         spriteArray[map[i]-1].x,spriteArray[map[i]-1].y,16,16,
         row*16+camera.x,col*16+camera.y,16,16//+camera.y+(16*35),16,16
     );
   }
@@ -158,8 +169,5 @@ function render(elapsedTime, ctx) {
   //player
   player.render(elapsedTime, ctx);
 }
-
-
-
 
 

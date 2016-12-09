@@ -70,7 +70,7 @@ Player.prototype.update = function(elapsedTime, input) {
   }
   // keep player on screen
   if(this.position.x < 0) this.position.x = 0;
-  if(this.position.x > CANVAS_WIDTH-32) this.position.x = CANVAS_WIDTH-32;
+  if(this.position.x > CANVAS_WIDTH+16*700) this.position.x = CANVAS_WIDTH+16*700;
   if(this.position.y < 0) this.position.y = 0;
   if(this.position.y > this.floor) this.position.y = this.floor;
 }
@@ -88,6 +88,6 @@ Player.prototype.render = function(elapasedTime, ctx) {
 Player.prototype.jump = function() {
   if (this.position.y == this.floor) {
     this.state = "jump";
-    this.velocity.y = -20;
+    this.velocity.y = -30;
   }
 }
