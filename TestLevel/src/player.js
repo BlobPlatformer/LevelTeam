@@ -19,9 +19,10 @@ module.exports = exports = Player;
 function Player(x,y) {
   this.state = "idle-right";
   this.position = {x: x, y: y};
+  this.redicule = {x: x, y: y};
   this.velocity = {x: 0, y: 0};
   this.gravity = {x: 0, y: 2};
-  this.floor = 16*35;
+  this.floor = 640;
   // TODO
   this.img = new Image()
   this.img.src = 'assets/img/Individual_Img/idle_right.png';
@@ -82,7 +83,7 @@ Player.prototype.update = function(elapsedTime, input) {
  * @param {CanvasRenderingContext2D} ctx
  */
 Player.prototype.render = function(elapasedTime, ctx) {
-  ctx.drawImage(this.img, 10*16, 35*16, 32, 32);
+  ctx.drawImage(this.img, this.redicule.x, this.redicule.y, 32, 32);
 }
 
 Player.prototype.jump = function() {

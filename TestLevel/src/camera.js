@@ -19,7 +19,7 @@ var map = tiles.getMap();
  * @param {Rect} screen the bounds of the screen
  */
 
-function Camera(map, screen) {
+function Camera(screen) {
   this.x = 0;
   this.y = 0;
   this.width = screen.width;
@@ -33,8 +33,8 @@ function Camera(map, screen) {
  * @param {Vector} target what the camera is looking at
  */
 Camera.prototype.update = function(target) {
-  this.x = -target.position.x-target.velocity.x+(16*10);
-  this.y = -target.position.y-target.velocity.y+(16*35);
+  this.x = target.position.x-target.redicule.x;
+  this.y = target.position.y-target.redicule.y;
 }
 
 /**

@@ -11,7 +11,7 @@ const Vector = require('./vector');
 /* Global variables */
 var canvas = document.getElementById('screen');
 var game = new Game(canvas, update, render);
-var player = new Player(16*10,16*35) ;
+var player = new Player(160,640);
 var input = {
   up: false,
   down: false,
@@ -37,7 +37,7 @@ var tiles = new Tiles();
 var map = tiles.getMap();
 var blocks = tiles.getBlocks();
 
-var camera = new Camera(map, canvas);
+var camera = new Camera(canvas);
 
 /**
  * @function onkeydown
@@ -127,6 +127,7 @@ masterLoop(performance.now());
  */
 function update(elapsedTime) {
   player.update(elapsedTime, input);
+
   if(player.velocity.y >= 0) {
     if(tiles.isFloor(player.position, camera)) {
       //player.velocity = {x:0,y:0};
@@ -151,24 +152,57 @@ function update(elapsedTime) {
 
 function render(elapsedTime, ctx) {
   ctx.clearRect(0,0,canvas.width,canvas.height);
-  //tilemap level background
-  //ctx.translate(camera.x, 0);
-  var row;
+  renderBackgrounds(elapsedTime, ctx);
+  /*var row;
   var col;
   for(var i=0; i<map.length; i++) {
     row = i%tiles.getWidth();
     col = Math.floor(i/tiles.getWidth());
-    //ctx.save();
-    //ctx.restore();
-    ctx.drawImage(
-    spritesheet,
-         spriteArray[map[i]-1].x,spriteArray[map[i]-1].y,16,16,
+    if(camera.onScreen({x:row*16,y:col*16}))
+    {
+      ctx.drawImage(
+        spritesheet,
+        spriteArray[map[i]-1].x,spriteArray[map[i]-1].y,16,16,
         row*16+camera.x,col*16+camera.y,16,16//+camera.y+(16*35),16,16
-    );
-  }
-  //ctx.translate(-camera.x, 0)
-  //player
+        );
+    }
+  }*/
   player.render(elapsedTime, ctx);
+}
+
+function renderBackgrounds(elapsedTime, ctx) {
+  var column = Math.floor(camera.x/16);
+  var row = Math.floor(camera.y/16);
+  var mapwidth = 700;
+  var mapWidth = column+(canvas.width/16)+1;
+  var mapHeight = row+(canvas.height/16)+1;
+
+
+
+
+  ctx.save();
+  ctx.translate(-camera.x,-camera.y);
+  for(row; row<mapHeight; row++)
+  {
+    for(column; column<mapWidth; column++)
+    {
+      ctx.drawImage(
+        spritesheet,
+        spriteArray[map[row*mapwidth+column]-1].x,spriteArray[map[row*mapwidth+column]-1].y,16,16,
+        column*16,row*16,16,16
+      );
+    }
+    column = Math.floor(camera.x/16);
+  }
+  ctx.restore();
+}
+
+function renderWorld() {
+
+}
+
+function renderGUI() {
+
 }
 
 
@@ -195,7 +229,7 @@ var map = tiles.getMap();
  * @param {Rect} screen the bounds of the screen
  */
 
-function Camera(map, screen) {
+function Camera(screen) {
   this.x = 0;
   this.y = 0;
   this.width = screen.width;
@@ -209,8 +243,8 @@ function Camera(map, screen) {
  * @param {Vector} target what the camera is looking at
  */
 Camera.prototype.update = function(target) {
-  this.x = -target.position.x-target.velocity.x+(16*10);
-  this.y = -target.position.y-target.velocity.y+(16*35);
+  this.x = target.position.x-target.redicule.x;
+  this.y = target.position.y-target.redicule.y;
 }
 
 /**
@@ -328,9 +362,10 @@ module.exports = exports = Player;
 function Player(x,y) {
   this.state = "idle-right";
   this.position = {x: x, y: y};
+  this.redicule = {x: x, y: y};
   this.velocity = {x: 0, y: 0};
   this.gravity = {x: 0, y: 2};
-  this.floor = 16*35;
+  this.floor = 640;
   // TODO
   this.img = new Image()
   this.img.src = 'assets/img/Individual_Img/idle_right.png';
@@ -391,7 +426,7 @@ Player.prototype.update = function(elapsedTime, input) {
  * @param {CanvasRenderingContext2D} ctx
  */
 Player.prototype.render = function(elapasedTime, ctx) {
-  ctx.drawImage(this.img, 10*16, 35*16, 32, 32);
+  ctx.drawImage(this.img, this.redicule.x, this.redicule.y, 32, 32);
 }
 
 Player.prototype.jump = function() {
