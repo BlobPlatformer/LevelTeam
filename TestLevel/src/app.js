@@ -10,7 +10,7 @@ const Vector = require('./vector');
 /* Global variables */
 var canvas = document.getElementById('screen');
 var game = new Game(canvas, update, render);
-var player = new Player(160,640);
+var player = new Player(160,480);
 var input = {
   up: false,
   down: false,

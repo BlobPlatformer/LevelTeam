@@ -116,7 +116,7 @@ Player.prototype.update = function(elapsedTime, input) {
       this.time += elapsedTime;
       if(input.left) {
         this.actualFrame.y = 1;
-        if(this.velocity.x > -10) {
+        if(this.velocity.x > -8) {
           this.velocity.x -= 1;
         }
         if (this.time >= MS_PER_FRAME && this.time <= 2*MS_PER_FRAME) { this.actualFrame.x = 0;}
@@ -124,7 +124,7 @@ Player.prototype.update = function(elapsedTime, input) {
       }
       else if(input.right) {
         this.actualFrame.y = 2;
-        if(this.velocity.x < 10) {
+        if(this.velocity.x < 8) {
           this.velocity.x += 1;
         }
         if (this.time >= MS_PER_FRAME && this.time <= 2*MS_PER_FRAME) { this.actualFrame.x = 0;}
@@ -150,12 +150,12 @@ Player.prototype.update = function(elapsedTime, input) {
         this.state = "idle";
       }
       else if(input.left) {
-        if(this.velocity.x > -10) {
+        if(this.velocity.x > -8) {
           this.velocity.x -= 1;
         }
       }
       else if(input.right) {
-        if(this.velocity.x < 10) {
+        if(this.velocity.x < 8) {
           this.velocity.x += 1;
         }
       }
@@ -192,12 +192,12 @@ Player.prototype.update = function(elapsedTime, input) {
         this.state = "falling";
       }
       else if(input.left) {
-        if(this.velocity.x > -10) {
+        if(this.velocity.x > -8) {
           this.velocity.x -= 1;
         }
       }
       else if(input.right) {
-        if(this.velocity.x < 10) {
+        if(this.velocity.x < 8) {
           this.velocity.x += 1;
         }
       }
